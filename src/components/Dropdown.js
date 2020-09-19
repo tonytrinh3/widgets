@@ -4,18 +4,30 @@ const Dropdown = ({options, selected, onSelectedChange}) =>{
     const [open,setOpen] = useState(false);
     const ref = useRef();
 
-    useEffect(()=>{
-        //console.log('ON'); //[] MEAN LOADS WHEN COMPONENT LOADS
-        document.body.addEventListener('click', (event)=>{ //event object comes along with every event listener
+    useEffect(()=>{//this useEffect is used to click outside of the dropdown to close the dropdown
+        console.log('ON'); //[] MEAN LOADS WHEN COMPONENT LOADS
+
+        const onBodyClick = (event)=>{ //event object comes along with every event listener
             // console.log(event.target);
 
             if (ref.current.contains(event.target)){
-              return;
+              return; //auto exits
+              
             } //you need this in order to have the drop down menu close after you click it
             //the reason the drop down menu cannot close is bc document.body is priority 
             //over the onclick of the item and the dropdown
+
+            //else setOpen to false to close the dropdown when body is touched
             setOpen(false);
-        })
+        };
+
+        document.body.addEventListener('click',onBodyClick );
+
+        return () =>{
+            console.log("useEffect cleanup return thing to clean up")
+            document.body.removeEventListener('click',onBodyClick);
+        }
+
     },[]);
 
 

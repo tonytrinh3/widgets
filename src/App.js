@@ -36,19 +36,23 @@ const options = [
 export default () =>{
     const [selected, setSelected] = useState(options[0]);
     //the reason we want the state in the app in case we have multiple Dropdown components we are going to use
-
+    const [showDropdown, setShowDropdown] = useState(true);
 
 
 
     return (
         <div className="">
             {/* <Accordion items = {items}/> */}
-
-            <Dropdown 
-            selected = {selected}
-            onSelectedChange = {setSelected}
-            options = {options}
-            />
+            <button onClick = {()=> setShowDropdown(!showDropdown)}className="">
+                Toggle Dropdown
+            </button>
+            {showDropdown ? 
+                <Dropdown 
+                selected = {selected}
+                onSelectedChange = {setSelected}
+                options = {options}
+                />: null
+            }   
         </div>
     )
 };
