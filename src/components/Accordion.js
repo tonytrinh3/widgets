@@ -15,7 +15,7 @@ const Accordion = ({items}) =>{
 
 
 
-        return <React.Fragment className="" key = {item.title}>
+        return <React.Fragment key = {item.title}>
             <div 
             className={`title ${active}`}
             onClick = {()=>onTitleClick(i)}

@@ -2,6 +2,10 @@ import React, {useState} from 'react';
 import Accordion from './components/Accordion';
 import Search from './components/Search';
 import Dropdown from './components/Dropdown';
+import Translate from './components/Translate';
+import RouteContent from './components/RouteContent';
+import Header from './components/Header';
+
 
 const items = [
     {
@@ -33,26 +37,80 @@ const options = [
     }
 ]
 
+// const showAccordion = () =>{
+//     if (window.location.pathname === '/'){
+//         return <Accordion items = {items}/>;
+//     }
+// };
+
+// const showList = () =>{
+//     if (window.location.pathname === '/list'){
+//         return <Search />;
+//     }
+// };
+
+// const showDropdown = () =>{
+//     if (window.location.pathname === '/dropdown'){
+//         return <Dropdown />;
+//     }
+// };
+
+// const showTranslate = () =>{
+//     if (window.location.pathname === '/translate'){
+//         return <Translate />;
+//     }
+// };
+
+
 export default () =>{
-    const [selected, setSelected] = useState(options[0]);
-    //the reason we want the state in the app in case we have multiple Dropdown components we are going to use
-    const [showDropdown, setShowDropdown] = useState(true);
-
-
+    const [selected,setSelected] = useState(options[0]);
 
     return (
-        <div className="">
-            {/* <Accordion items = {items}/> */}
-            <button onClick = {()=> setShowDropdown(!showDropdown)}className="">
-                Toggle Dropdown
-            </button>
-            {showDropdown ? 
-                <Dropdown 
-                selected = {selected}
-                onSelectedChange = {setSelected}
-                options = {options}
-                />: null
-            }   
-        </div>
+        <header className="">
+            <Header />
+            {/* route is there to rerender the content */}
+            <RouteContent path = "/">
+                <Accordion items = {items}/>
+            </RouteContent>
+            <RouteContent path = "/list">
+                <Search />
+            </RouteContent>
+            <RouteContent path = "/dropdown">
+                <Dropdown
+                    label = "Select a color"
+                    options = {options}
+                    selected = {selected}
+                    onSelectedChange = {setSelected}
+                />
+            </RouteContent>
+            <RouteContent path = "/translate">
+                <Translate/>
+            </RouteContent>
+        </header>
     )
 };
+
+//For Dropdown
+// export default () =>{
+//     const [selected, setSelected] = useState(options[0]);
+//     //the reason we want the state in the app in case we have multiple Dropdown components we are going to use
+//     const [showDropdown, setShowDropdown] = useState(true);
+
+
+
+//     return (
+//         <div className="">
+//             {/* <Accordion items = {items}/> */}
+//             <button onClick = {()=> setShowDropdown(!showDropdown)}className="">
+//                 Toggle Dropdown
+//             </button>
+//             {showDropdown ? 
+//                 <Dropdown 
+//                 selected = {selected}
+//                 onSelectedChange = {setSelected}
+//                 options = {options}
+//                 />: null
+//             }   
+//         </div>
+//     )
+// };
